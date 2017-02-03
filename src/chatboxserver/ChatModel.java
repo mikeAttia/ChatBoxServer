@@ -16,9 +16,9 @@ public class ChatModel implements ServerInterface {
 
     Vector<User> groupChatNames;
     Vector<Vector<User>> groupChatRefrences;
-    Controller controlerObject;
+    MainController controlerObject;
 
-    public ChatModel(Controller c) {
+    public ChatModel(MainController c) {
         controlerObject = c;
     }
 

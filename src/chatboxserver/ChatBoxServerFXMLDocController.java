@@ -30,6 +30,27 @@ public class ChatBoxServerFXMLDocController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    } 
     
+    //reconnect button onaction -- call DbConnect()
+    //Start button onaction -- call 
+    
+    //EHAB
+    //ID selectors for all elements in GUI
+    /*void guiDBConnected
+        1. disable all fields
+        2. enable start button
+        3. hide reconnect
+        4. call appendToLog()
+        5. setDBStatus to online
+    */
+    void guiDBDisConnected (){
+    
+    }
+//        1. disable all fields
+//        2.show reconnect
+//        3. call appendToLog()
+//        4. setDBStatus to offlineline
+    
+    //End EHAB
 }

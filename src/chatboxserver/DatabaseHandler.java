@@ -15,9 +15,9 @@ public class DatabaseHandler {
     Connection con;
     ResultSet rs;
     PreparedStatement pst;
-    Controller cont;
+    MainController cont;
 
-    public DatabaseHandler(Controller m) {
+    public DatabaseHandler(MainController m) {
         cont=m;
     }
     
