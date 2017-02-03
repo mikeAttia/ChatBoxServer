@@ -17,6 +17,7 @@ public class DatabaseHandler {
     PreparedStatement pst;
     MainController cont;
 
+    //Constructor that links Database handler to MainController
     public DatabaseHandler(MainController m) {
         cont=m;
     }

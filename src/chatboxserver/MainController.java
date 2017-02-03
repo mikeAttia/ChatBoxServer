@@ -5,49 +5,30 @@
  */
 package chatboxserver;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.application.Application;
-import static javafx.application.Application.launch;
-import javafx.fxml.Initializable;
+
 
 /**
  *
  * @author Mustafa
  */
-public class MainController implements Initializable {
+public class MainController{
 
-    ChatModel chatModel;
-    static DatabaseHandler dbModel;
-    static ChatBoxServerFXMLDocController viewController;
-
-    public MainController() {
-        //chatModel=new ChatModel(this);
-        //dbModel=new DatabaseHandler(this);
-        //viewController = new ChatBoxServerFXMLDocController(this);
+     ChatModel chatModel;
+     DatabaseHandler dbHandler;
+     ChatBoxServerFXMLDocController fxmlController;
+     ChatBoxServer application;
+    
+    
+    //Constructor that takes FXMLController and creates objects of other classes
+    public MainController(ChatBoxServerFXMLDocController fxmlController) {
+        chatModel=new ChatModel(this);
+        dbHandler = new DatabaseHandler(this);
+        fxmlController = fxmlController;
     }
-
-    void requestServerStart() {
-        //Ehab
-    }
-
-    void requestServerStop() {
-        //Ehab
-    }
-
-    void sendAnnouncement(String str) {
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-    }
+ 
     
     public static void main(String[] args) {
-        /*if( dbModel.intiateDBConnection()){
-            viewController.guiDBConnected();
-        }else{
-            viewController.guiDBDisConnected();
-        }*/
         Application.launch(ChatBoxServer.class, args);
     }
 }
