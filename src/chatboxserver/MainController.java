@@ -19,13 +19,12 @@ public class MainController implements Initializable {
 
     ChatModel chatModel;
     static DatabaseHandler dbModel;
-    ChatBoxServerFXMLDocController viewController;
+    static ChatBoxServerFXMLDocController viewController;
 
     public MainController() {
-//model_chat=new ChatModel(this);
-//model_DB=new DatabaseHandler(this);
-//view_ViewFrame = new ServerView(this);
-
+        //chatModel=new ChatModel(this);
+        //dbModel=new DatabaseHandler(this);
+        //viewController = new ChatBoxServerFXMLDocController(this);
     }
 
     void requestServerStart() {
@@ -44,11 +43,11 @@ public class MainController implements Initializable {
     }
     
     public static void main(String[] args) {
-//        if( dbModel.intiateDBConnection()){
-//            viewController.guiDBConnected();
-//        }else{
-//            viewController.guiDBDisConnected();
-//        }
+        /*if( dbModel.intiateDBConnection()){
+            viewController.guiDBConnected();
+        }else{
+            viewController.guiDBDisConnected();
+        }*/
         Application.launch(ChatBoxServer.class, args);
     }
 }
