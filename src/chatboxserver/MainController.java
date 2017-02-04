@@ -5,8 +5,6 @@
  */
 package chatboxserver;
 
-import javafx.application.Application;
-
 
 /**
  *
@@ -21,14 +19,10 @@ public class MainController{
     
     
     //Constructor that takes FXMLController and creates objects of other classes
-    public MainController(ChatBoxServerFXMLDocController fxmlController) {
+    public MainController(ChatBoxServerFXMLDocController fxmlCtrlr) {
         chatModel=new ChatModel(this);
         dbHandler = new DatabaseHandler(this);
-        fxmlController = fxmlController;
+        fxmlController = fxmlCtrlr;
     }
  
-    
-    public static void main(String[] args) {
-        Application.launch(ChatBoxServer.class, args);
-    }
 }

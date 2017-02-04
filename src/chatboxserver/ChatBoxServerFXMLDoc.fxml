@@ -61,8 +61,8 @@
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="130.0" minWidth="10.0" prefWidth="116.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="88.97811889648438" minWidth="10.0" prefWidth="37.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="149.14910888671875" minWidth="10.0" prefWidth="134.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="132.28424072265625" minWidth="10.0" prefWidth="60.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="130.28863525390625" minWidth="10.0" prefWidth="102.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="132.28424072265625" minWidth="10.0" prefWidth="56.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="130.28863525390625" minWidth="10.0" prefWidth="106.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="72.19012451171875" minWidth="10.0" prefWidth="13.0" />
         </columnConstraints>
         <rowConstraints>
@@ -93,7 +93,7 @@
                <font>
                   <Font size="15.0" />
                </font></Text>
-            <Text fill="#ff2626" strokeType="OUTSIDE" strokeWidth="0.0" text="Offline" GridPane.columnIndex="8" GridPane.rowIndex="1">
+            <Text fx:id="DBStatus" fill="#ff2626" strokeType="OUTSIDE" strokeWidth="0.0" text="Offline" GridPane.columnIndex="8" GridPane.rowIndex="1">
                <font>
                   <Font size="15.0" />
                </font></Text>
@@ -101,7 +101,7 @@
                <font>
                   <Font size="15.0" />
                </font></Text>
-            <Hyperlink text="Reconnect" GridPane.columnIndex="9" GridPane.rowIndex="1">
+            <Hyperlink fx:id="reconnectLink" text="reconnect" GridPane.columnIndex="9" GridPane.rowIndex="1">
                <font>
                   <Font size="15.0" />
                </font></Hyperlink>
@@ -137,7 +137,7 @@
                   <Tooltip text="List of Offline Users" />
                </tooltip>
             </ListView>
-            <TextFlow prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #1B1E25;" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <TextFlow fx:id="activityLog" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #1B1E25;" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="5.0" />
                </GridPane.margin>

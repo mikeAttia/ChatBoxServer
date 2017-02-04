@@ -19,16 +19,19 @@ public class DatabaseHandler {
 
     //Constructor that links Database handler to MainController
     public DatabaseHandler(MainController m) {
+        System.out.println("DB constructor");
         cont=m;
     }
     
     public boolean intiateDBConnection() {
         try {
             //   DriverManager.registerDriver(new OracleDriver());
+                System.out.println("connection method called");
             con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "ehab", "ehab");
             return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
+            System.out.println("exception caught");
             return false;
         }
     }
