@@ -24,5 +24,23 @@ public class MainController{
         dbHandler = new DatabaseHandler(this);
         fxmlController = fxmlCtrlr;
     }
- 
+    void requestServerStart() {
+        //Ehab
+        if(chatModel.bindService())
+        {
+            
+        }
+        else
+        {
+            
+        }
+    }
+
+    void requestServerStop() {
+        //Ehab
+    }
+
+    void sendAnnouncement(String str) {
+    }
+
 }

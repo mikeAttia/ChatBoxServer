@@ -7,9 +7,13 @@ package chatboxserver;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
@@ -35,6 +39,27 @@ public class ChatBoxServerFXMLDocController implements Initializable {
     
     @FXML
     public TextFlow activityLog;
+    
+    @FXML
+    public Button startBtn;
+    
+    @FXML
+    public Button stopBtn;
+    
+    @FXML
+    public Button statsBtn;
+    
+    @FXML
+    public ListView onlineView;
+    
+    @FXML
+    public ListView offlineView;
+    
+    @FXML
+    public TextArea announceArea;
+    
+    @FXML
+    public Button announceBtn;
 
     public ChatBoxServerFXMLDocController() {
         mainController = new MainController(this);
@@ -56,7 +81,11 @@ public class ChatBoxServerFXMLDocController implements Initializable {
         
     }
     */
-    
+    @FXML
+    private void reconnectToDB(ActionEvent event)
+    {
+        connectToDB();
+    }
     
     /*------------------------------------------------------------
       Other methods to call inside buttons methods
@@ -77,9 +106,16 @@ public class ChatBoxServerFXMLDocController implements Initializable {
     public void guiDBConnected()
     {
         reconnectLink.setVisible(false);
-        //TODO: set color to green with css probably
         DBStatus.setText("Online");
+        DBStatus.setFill(Color.GREEN);
         //TODO: enable the start button
+        startBtn.setDisable(false);
+        stopBtn.setDisable(true);
+        statsBtn.setDisable(true);
+        announceArea.setDisable(true);
+        announceBtn.setDisable(true);
+        onlineView.setDisable(true);
+        offlineView.setDisable(true);
         guiAppendToLog("Database Connected", "green");
     }
     
@@ -88,9 +124,16 @@ public class ChatBoxServerFXMLDocController implements Initializable {
     public void guiDBDisConnected()
     {
         reconnectLink.setVisible(true);
-        //TODO: set color to red with css probably
         DBStatus.setText("Offline");
+        DBStatus.setFill(Color.RED);
         //TODO: disable the rest of the form
+        startBtn.setDisable(true);
+        stopBtn.setDisable(true);
+        statsBtn.setDisable(true);
+        announceArea.setDisable(true);
+        announceBtn.setDisable(true);
+        onlineView.setDisable(true);
+        offlineView.setDisable(true);
         guiAppendToLog("Database Disconnected", "red");
     }
     

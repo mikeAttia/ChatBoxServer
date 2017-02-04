@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
@@ -14,7 +19,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700.0" minWidth="800.0" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chatboxserver.ChatBoxServerFXMLDocController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700.0" minWidth="800.0" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chatboxserver.ChatBoxServerFXMLDocController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
@@ -41,11 +46,11 @@
             <RowConstraints maxHeight="46.97705078125" minHeight="10.0" prefHeight="12.14666748046875" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="27.0" prefWidth="74.0" text="Announce to all users" GridPane.columnIndex="3" GridPane.rowIndex="3">
+            <Button fx:id="announceBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="27.0" prefWidth="74.0" text="Announce to all users" GridPane.columnIndex="3" GridPane.rowIndex="3">
                <tooltip>
                   <Tooltip text="Send a message to all online users" />
                </tooltip></Button>
-            <TextArea maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="101.0" prefWidth="366.0" promptText="Type the message you want to send to all users here ... Then press &quot;Announce to all users&quot;&quot;" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="1">
+            <TextArea fx:id="announceArea" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="101.0" prefWidth="366.0" promptText="Type the message you want to send to all users here ... Then press &quot;Announce to all users&quot;&quot;" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="1">
                <font>
                   <Font size="14.0" />
                </font></TextArea>
@@ -73,15 +78,15 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Start" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="3">
+            <Button fx:id="startBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Start" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="3">
                <tooltip>
                   <Tooltip text="Start Server" />
                </tooltip></Button>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Stop" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.rowSpan="3">
+            <Button fx:id="stopBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Stop" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.rowSpan="3">
                <tooltip>
                   <Tooltip text="Stop Server" />
                </tooltip></Button>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Statistics" GridPane.columnIndex="5" GridPane.rowIndex="1" GridPane.rowSpan="3">
+            <Button fx:id="statsBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Statistics" GridPane.columnIndex="5" GridPane.rowIndex="1" GridPane.rowSpan="3">
                <tooltip>
                   <Tooltip text="Show Statistics about users" />
                </tooltip></Button>
@@ -101,7 +106,7 @@
                <font>
                   <Font size="15.0" />
                </font></Text>
-            <Hyperlink fx:id="reconnectLink" text="reconnect" GridPane.columnIndex="9" GridPane.rowIndex="1">
+            <Hyperlink fx:id="reconnectLink" onAction="#reconnectToDB" text="reconnect" GridPane.columnIndex="9" GridPane.rowIndex="1">
                <font>
                   <Font size="15.0" />
                </font></Hyperlink>
@@ -121,7 +126,7 @@
           <RowConstraints maxHeight="46.12109375" minHeight="10.0" prefHeight="18.1962890625" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ListView prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <ListView fx:id="onlineView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets right="5.0" />
                </GridPane.margin>
@@ -129,7 +134,7 @@
                   <Tooltip text="List of Online Users" />
                </tooltip>
             </ListView>
-            <ListView prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <ListView fx:id="offlineView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
