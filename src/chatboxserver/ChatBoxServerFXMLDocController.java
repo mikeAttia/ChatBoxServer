@@ -6,6 +6,7 @@
 package chatboxserver;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -61,7 +62,7 @@ public class ChatBoxServerFXMLDocController implements Initializable {
     @FXML
     public Button announceBtn;
 
-    public ChatBoxServerFXMLDocController() {
+    public ChatBoxServerFXMLDocController() throws RemoteException {
         mainController = new MainController(this);
        
     }
@@ -85,6 +86,11 @@ public class ChatBoxServerFXMLDocController implements Initializable {
     private void reconnectToDB(ActionEvent event)
     {
         connectToDB();
+    }
+    @FXML
+    private void startServer(ActionEvent event)
+    {
+        mainController.requestServerStart();
     }
     
     /*------------------------------------------------------------

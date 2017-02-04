@@ -7,6 +7,7 @@
 package chatboxserver;
 
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 
 /**
  *
@@ -21,12 +22,12 @@ public interface Client extends Remote{
 //+requestFileSend(String ... FileName) Boolean
 //+SendFile(String fName,byte[] bytes,int len) void
     
-    void displayMsg(String msg);
-    void showAdvert(String s);
-    void getNotification(User s,String Status);
-    void notifyServerStop();
-    void notifySchduledServerStop(int seconds);
-    boolean requestFileSend(String ... FileName);
-    void SendFile(String fName,byte[] bytes,int len);
+    void displayMsg(String msg) throws RemoteException;
+    void showAdvert(String s) throws RemoteException ;
+    void getNotification(User s,String Status) throws RemoteException;
+    void notifyServerStop() throws RemoteException;
+    void notifySchduledServerStop(int seconds) throws RemoteException;
+    boolean requestFileSend(String ... FileName) throws RemoteException;
+    void SendFile(String fName,byte[] bytes,int len) throws RemoteException;
     
 }

@@ -1,7 +1,9 @@
 
 package chatboxserver;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable{
     private String username;
     private String email;
     private String phone;

@@ -6,66 +6,61 @@
 package chatboxserver;
 
 
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Mustafa
  */
-public class ChatModel implements ServerInterface {
+public class ChatModel extends UnicastRemoteObject implements ServerInterface {
 
     Vector<User> groupChatNames;
     Vector<Vector<User>> groupChatRefrences;
     MainController controlerObject;
 
-    public ChatModel(MainController c) {
+    public ChatModel(MainController c) throws RemoteException
+    {
         controlerObject = c;
     }
 
     boolean bindService() {
-        return true;
+        try {
+            Registry reg=LocateRegistry.createRegistry(5005);
+            reg.rebind("RemoteService", this);
+            return true;
+        } catch (RemoteException ex) {
+            ex.printStackTrace();
+            return false;
+        }
     }
 
     boolean unbindService() {
         return true;
     }
 
-    void sendAnnouncment(String s) {
+    @Override
+    public Vector<User> loginRequest(String username, String password, Client userInt) {
+        /*
+            1. call function getUser to check username and password (return null)
+            2. call function getFriends (return vector of friends bjects).
+        */
+        return null; // to be removed
     }
 
     @Override
-    public Vector<User> loginRequest(String x, String z, Client y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String signUp(User newUser, Client userInt) {
+        /*
+            1.call function checkUsername (return error message related to username)
+            2.call function checkEmail  (retrun error message related to email)
+            3.call function insertUser  (return succes message)
+        */
+        return null; // to be removed
     }
-
-    @Override
-    public String signUp(User x, Client y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void changeStatus(String x, Client y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Client requestChatP2P(Client src, String dest) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void intiateGroupChat(String groupChatName, Vector<User> group, Client initiator) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void sendMessageToGroup(String groupChatName, String msg) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void sendFileToGroup(String fname, byte[] bytes, int length) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
 }

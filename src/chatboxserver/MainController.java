@@ -5,6 +5,8 @@
  */
 package chatboxserver;
 
+import java.rmi.RemoteException;
+
 
 /**
  *
@@ -19,7 +21,7 @@ public class MainController{
     
     
     //Constructor that takes FXMLController and creates objects of other classes
-    public MainController(ChatBoxServerFXMLDocController fxmlCtrlr) {
+    public MainController(ChatBoxServerFXMLDocController fxmlCtrlr) throws RemoteException {
         chatModel=new ChatModel(this);
         dbHandler = new DatabaseHandler(this);
         fxmlController = fxmlCtrlr;
@@ -28,19 +30,15 @@ public class MainController{
         //Ehab
         if(chatModel.bindService())
         {
-            
+            fxmlController.guiAppendToLog("serverconnected", "green");
         }
         else
         {
-            
+            fxmlController.guiAppendToLog("serverdisconnected", "red");
         }
     }
 
     void requestServerStop() {
         //Ehab
     }
-
-    void sendAnnouncement(String str) {
-    }
-
 }

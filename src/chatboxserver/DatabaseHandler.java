@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DatabaseHandler {
 
@@ -28,8 +30,10 @@ public class DatabaseHandler {
             //   DriverManager.registerDriver(new OracleDriver());
                 System.out.println("connection method called");
             con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "ehab", "ehab");
+            //insertUser(new User("ehab","jgfg","23","23232","ehab","jgfg","23","23232","3434"));
+            //User user=getUser("ajkshkajshfjkah");
             return true;
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
             System.out.println("exception caught");
             return false;
@@ -55,7 +59,40 @@ public class DatabaseHandler {
             return false;
         }
     }
-
+    public boolean checkUsername(String username)
+    {
+        try {
+            pst = con.prepareStatement("SELECT * FROM USERS WHERE USERNAME=?");
+            pst.setString(1, username);
+            rs = pst.executeQuery();
+            if(!rs.next())
+            {
+                return true;
+            }
+            return false;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return true;
+        }
+            
+    }
+    
+    public boolean checkEmail(String email)
+    {
+        try {
+            pst = con.prepareStatement("SELECT * FROM USERS WHERE EMAIL=?");
+            pst.setString(1, email);
+            rs = pst.executeQuery();
+            if(!rs.next())
+            {
+                return true;
+            }
+            return false;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return true;
+        }
+    }
     public boolean insertContact(String userName, String friendName) {
         try {
             pst = con.prepareStatement("INSERT INTO CONTACTLIST VALUES(?,?)");
