@@ -18,6 +18,8 @@ public class DatabaseHandler {
     ResultSet rs;
     PreparedStatement pst;
     MainController cont;
+        String property = System.getProperty("user.dir");
+
 
     //Constructor that links Database handler to MainController
     public DatabaseHandler(MainController m) {
@@ -28,8 +30,10 @@ public class DatabaseHandler {
     public boolean intiateDBConnection() {
         try {
             //   DriverManager.registerDriver(new OracleDriver());
-                System.out.println("connection method called");
-            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "ehab", "ehab");
+         //       System.out.println("connection method called");
+          //  con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "ehab", "ehab");
+             Class.forName("org.sqlite.JDBC");
+            con = DriverManager.getConnection("jdbc:sqlite:" + property + "/ProjectTest.db", "", "");
             //insertUser(new User("ehab","jgfg","23","23232","ehab","jgfg","23","23232","3434"));
             //User user=getUser("ajkshkajshfjkah");
             return true;
