@@ -39,6 +39,9 @@ public class ChatBoxServerFXMLDocController implements Initializable {
     public Text DBStatus;
     
     @FXML
+    public Text serverStatus;
+    
+    @FXML
     public TextFlow activityLog;
     
     @FXML
@@ -90,7 +93,44 @@ public class ChatBoxServerFXMLDocController implements Initializable {
     @FXML
     private void startServer(ActionEvent event)
     {
-        mainController.requestServerStart();
+        if(mainController.requestServerStart())
+        {
+            guiAppendToLog("-Server Connected", "green");
+            startBtn.setDisable(true);
+            stopBtn.setDisable(false);
+            statsBtn.setDisable(false);
+            announceArea.setDisable(false);
+            announceBtn.setDisable(false);
+            onlineView.setDisable(false);
+            offlineView.setDisable(false);
+            serverStatus.setText("Online");
+            serverStatus.setFill(Color.GREEN);
+        }
+        else
+        {
+            guiAppendToLog("error in connection to server", "red");
+        }
+    }
+    @FXML
+    private void stopServer(ActionEvent event)
+    {
+        if(mainController.requestServerStop())
+        {
+            guiAppendToLog("-Server Disconnected", "red");
+            startBtn.setDisable(false);
+            stopBtn.setDisable(true);
+            statsBtn.setDisable(true);
+            announceArea.setDisable(true);
+            announceBtn.setDisable(true);
+            onlineView.setDisable(true);
+            offlineView.setDisable(true);
+            serverStatus.setText("Offline");
+            serverStatus.setFill(Color.RED);
+        }
+        else
+        {
+            guiAppendToLog("error in disconnecting from server", "red");
+        }
     }
     
     /*------------------------------------------------------------

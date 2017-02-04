@@ -6,6 +6,7 @@
 package chatboxserver;
 
 
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -23,6 +24,7 @@ public class ChatModel extends UnicastRemoteObject implements ServerInterface {
     Vector<User> groupChatNames;
     Vector<Vector<User>> groupChatRefrences;
     MainController controlerObject;
+    private Registry reg;
 
     public ChatModel(MainController c) throws RemoteException
     {
@@ -31,8 +33,8 @@ public class ChatModel extends UnicastRemoteObject implements ServerInterface {
 
     boolean bindService() {
         try {
-            Registry reg=LocateRegistry.createRegistry(5005);
-            reg.rebind("RemoteService", this);
+            reg=LocateRegistry.createRegistry(5005);
+            reg.rebind("ChatBox", this);
             return true;
         } catch (RemoteException ex) {
             ex.printStackTrace();
@@ -41,7 +43,17 @@ public class ChatModel extends UnicastRemoteObject implements ServerInterface {
     }
 
     boolean unbindService() {
-        return true;
+        
+        try {
+            reg.unbind("ChatBox");
+            return true;
+        } catch (RemoteException ex) {
+            ex.printStackTrace();
+            return false;
+        } catch (NotBoundException ex) {
+            ex.printStackTrace();
+            return false;
+        }
     }
 
     @Override

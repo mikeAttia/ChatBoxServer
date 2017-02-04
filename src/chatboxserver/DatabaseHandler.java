@@ -1,6 +1,6 @@
 package chatboxserver;
 
-
+import oracle.jdbc.driver.OracleDriver;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -27,11 +27,9 @@ public class DatabaseHandler {
     
     public boolean intiateDBConnection() {
         try {
-            //   DriverManager.registerDriver(new OracleDriver());
-                System.out.println("connection method called");
+            DriverManager.registerDriver(new OracleDriver());
+            System.out.println("connection method called");
             con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "ehab", "ehab");
-            //insertUser(new User("ehab","jgfg","23","23232","ehab","jgfg","23","23232","3434"));
-            //User user=getUser("ajkshkajshfjkah");
             return true;
         } catch (Exception ex) {
             ex.printStackTrace();
