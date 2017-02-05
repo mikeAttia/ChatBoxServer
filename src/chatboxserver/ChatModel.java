@@ -12,8 +12,6 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -29,13 +27,13 @@ public class ChatModel extends UnicastRemoteObject implements ServerInterface {
     public ChatModel(MainController c) throws RemoteException
     {
         controlerObject = c;
-      //          loginRequest("s","s",null);
-//c.dbHandler.insertUser(new User("asdad", null, null, null, null, null, null, null, null));
+        reg=LocateRegistry.createRegistry(5005);
+     
     }
 
     boolean bindService() {
         try {
-            reg=LocateRegistry.createRegistry(5005);
+            
             reg.rebind("ChatBox", this);
             return true;
         } catch (RemoteException ex) {
