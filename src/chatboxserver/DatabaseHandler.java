@@ -9,8 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class DatabaseHandler {
 
@@ -18,25 +16,23 @@ public class DatabaseHandler {
     ResultSet rs;
     PreparedStatement pst;
     MainController cont;
-        String property = System.getProperty("user.dir");
-
+    String property = System.getProperty("user.dir");
 
     //Constructor that links Database handler to MainController
     public DatabaseHandler(MainController m) {
         System.out.println("DB constructor");
-        cont=m;
+        cont = m;
     }
-    
+
     public boolean intiateDBConnection() {
         try {
             //   DriverManager.registerDriver(new OracleDriver());
-         //       System.out.println("connection method called");
-          //  con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "ehab", "ehab");
-             Class.forName("org.sqlite.JDBC");
+            //       System.out.println("connection method called");
+            //  con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "ehab", "ehab");
+            Class.forName("org.sqlite.JDBC");
             con = DriverManager.getConnection("jdbc:sqlite:" + property + "/ProjectTest.db", "", "");
-
-             insertUser(new User("ehab","jgfg","23","23232","ehab","jgfg","23","23232","3434"));
-            User user=getUser("ajkshkajshfjkah");
+           //  insertUser(new User("ehab","jgfg","23","23232","ehab","jgfg","23","23232","3434"));
+            //   User user=getUser("ajkshkajshfjkah");
             return true;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -64,32 +60,32 @@ public class DatabaseHandler {
             return false;
         }
     }
-    public boolean checkUsername(String username)
-    {
+
+    public boolean checkUsername(String username, String password) {
         try {
-            pst = con.prepareStatement("SELECT * FROM USERS WHERE USERNAME=?");
+            pst = con.prepareStatement("SELECT USERNAME,PASSWORD FROM USERS WHERE USERNAME=? and password=?");
             pst.setString(1, username);
+            pst.setString(2, password);
+
             rs = pst.executeQuery();
-            if(!rs.next())
-            {
+
+            if (rs.next()) {
                 return true;
             }
             return false;
         } catch (SQLException ex) {
             ex.printStackTrace();
-            return true;
+            return false;
         }
-            
+
     }
-    
-    public boolean checkEmail(String email)
-    {
+
+    public boolean checkEmail(String email) {
         try {
             pst = con.prepareStatement("SELECT * FROM USERS WHERE EMAIL=?");
             pst.setString(1, email);
             rs = pst.executeQuery();
-            if(!rs.next())
-            {
+            if (!rs.next()) {
                 return true;
             }
             return false;
@@ -98,6 +94,7 @@ public class DatabaseHandler {
             return true;
         }
     }
+
     public boolean insertContact(String userName, String friendName) {
         try {
             pst = con.prepareStatement("INSERT INTO CONTACTLIST VALUES(?,?)");
@@ -161,7 +158,7 @@ public class DatabaseHandler {
             rs = pst.executeQuery();
             while (rs.next()) {
                 User user = new User(rs.getString("USERNAME"), rs.getString("EMAIL"), rs.getString("PHONE"), rs.getString("GENDER"), rs.getString("BIRTHOFDATE"), rs.getString("PASSWORD"), rs.getString("COUNTRY"), rs.getString("STATUS"), rs.getString("IMAGE"));
-                 users.add(user);
+                users.add(user);
             }
             return users;
         } catch (SQLException ex) {
@@ -169,18 +166,17 @@ public class DatabaseHandler {
             return null;
         }
     }
-     
-      public Vector<User> getAllUserFriends(String user,String password) {
+
+    public Vector<User> getAllUserFriends(String user) {
         Vector<User> users = new Vector<>();
         try {
-            pst = con.prepareStatement("SELECT * FROM USERS ");
-         
-
+            pst = con.prepareStatement("SELECT u.USERNAME AS friendname,email,phone,gender,BIRTHOFDATE,COUNTRY,STATUS,IMAGE FROM USERS u INNER JOIN CONTACTLIST cl on u.username=cl.friendname where cl.username=?");
+            pst.setString(1, user);
             rs = pst.executeQuery();
             while (rs.next()) {
-
-             //   User user2 = new User(rs.getString("USERNAME"), rs.getString("EMAIL"), rs.getString("PHONE"), rs.getString("GENDER"), rs.getString("BIRTHOFDATE"), rs.getString("PASSWORD"), rs.getString("COUNTRY"), rs.getString("STATUS"), rs.getString("IMAGE"));
-             // users.add(user2);
+                System.out.println("asd");
+                User user2 = new User(rs.getString("friendname"), rs.getString("EMAIL"), rs.getString("PHONE"), rs.getString("GENDER"), rs.getString("BIRTHOFDATE"), null, rs.getString("COUNTRY"), rs.getString("STATUS"), rs.getString("IMAGE"));
+                users.add(user2);
             }
             return users;
         } catch (SQLException ex) {
@@ -246,5 +242,4 @@ public class DatabaseHandler {
         }
     }
 
-   
 }
