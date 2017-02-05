@@ -30,7 +30,7 @@ public class ChatModel extends UnicastRemoteObject implements ServerInterface {
     {
         controlerObject = c;
       //          loginRequest("s","s",null);
-c.dbHandler.insertUser(new User("asdad", null, null, null, null, null, null, null, null));
+//c.dbHandler.insertUser(new User("asdad", null, null, null, null, null, null, null, null));
     }
 
     boolean bindService() {

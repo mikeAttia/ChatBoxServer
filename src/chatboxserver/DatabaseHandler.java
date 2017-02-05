@@ -34,8 +34,9 @@ public class DatabaseHandler {
           //  con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "ehab", "ehab");
              Class.forName("org.sqlite.JDBC");
             con = DriverManager.getConnection("jdbc:sqlite:" + property + "/ProjectTest.db", "", "");
-            //insertUser(new User("ehab","jgfg","23","23232","ehab","jgfg","23","23232","3434"));
-            //User user=getUser("ajkshkajshfjkah");
+
+             insertUser(new User("ehab","jgfg","23","23232","ehab","jgfg","23","23232","3434"));
+            User user=getUser("ajkshkajshfjkah");
             return true;
         } catch (Exception ex) {
             ex.printStackTrace();
