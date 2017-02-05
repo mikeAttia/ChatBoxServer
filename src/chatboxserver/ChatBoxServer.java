@@ -20,17 +20,16 @@ public class ChatBoxServer extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("ChatBoxServerFXMLDoc.fxml"));
-        
+        stage.setOnCloseRequest((e) -> System.exit(0));
         Scene scene = new Scene(root);
         stage.setMinWidth(700);
         stage.setMinHeight(650);
         stage.setScene(scene);
         stage.show();
-            }
-    
+    }
     
     public static void main(String[] args) {
-       launch(args);
+        launch(args);
     }
     
 }
