@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -159,10 +160,30 @@ public class DatabaseHandler {
             rs = pst.executeQuery();
             while (rs.next()) {
                 User user = new User(rs.getString("USERNAME"), rs.getString("EMAIL"), rs.getString("PHONE"), rs.getString("GENDER"), rs.getString("BIRTHOFDATE"), rs.getString("PASSWORD"), rs.getString("COUNTRY"), rs.getString("STATUS"), rs.getString("IMAGE"));
-                users.add(user);
+                 users.add(user);
             }
             return users;
         } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+     
+      public Vector<User> getAllUserFriends(String user,String password) {
+        Vector<User> users = new Vector<>();
+        try {
+            pst = con.prepareStatement("SELECT * FROM USERS ");
+         
+
+            rs = pst.executeQuery();
+            while (rs.next()) {
+
+             //   User user2 = new User(rs.getString("USERNAME"), rs.getString("EMAIL"), rs.getString("PHONE"), rs.getString("GENDER"), rs.getString("BIRTHOFDATE"), rs.getString("PASSWORD"), rs.getString("COUNTRY"), rs.getString("STATUS"), rs.getString("IMAGE"));
+             // users.add(user2);
+            }
+            return users;
+        } catch (SQLException ex) {
+            System.out.println("asd");
             ex.printStackTrace();
             return null;
         }

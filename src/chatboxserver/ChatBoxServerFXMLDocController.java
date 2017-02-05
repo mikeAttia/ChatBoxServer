@@ -8,6 +8,7 @@ package chatboxserver;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -182,6 +183,11 @@ public class ChatBoxServerFXMLDocController implements Initializable {
         offlineView.setDisable(true);
         guiAppendToLog("Database Disconnected", "red");
     }
+
+ 
+    
+    
+ 
     
     //Append to the Activity log with a ceratin color
     public void guiAppendToLog(String txt,String type)

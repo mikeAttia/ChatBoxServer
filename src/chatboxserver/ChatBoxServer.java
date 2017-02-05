@@ -22,12 +22,11 @@ public class ChatBoxServer extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("ChatBoxServerFXMLDoc.fxml"));
         
         Scene scene = new Scene(root);
-        
         stage.setMinWidth(700);
         stage.setMinHeight(650);
         stage.setScene(scene);
         stage.show();
-    }
+            }
     
     
     public static void main(String[] args) {

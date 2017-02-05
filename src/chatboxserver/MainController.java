@@ -6,6 +6,7 @@
 package chatboxserver;
 
 import java.rmi.RemoteException;
+import java.util.Vector;
 
 
 /**
@@ -22,8 +23,9 @@ public class MainController{
     
     //Constructor that takes FXMLController and creates objects of other classes
     public MainController(ChatBoxServerFXMLDocController fxmlCtrlr) throws RemoteException {
+              dbHandler = new DatabaseHandler(this);
+
         chatModel=new ChatModel(this);
-        dbHandler = new DatabaseHandler(this);
         fxmlController = fxmlCtrlr;
     }
     boolean requestServerStart() {
@@ -35,4 +37,13 @@ public class MainController{
          //Ehab
          return chatModel.unbindService();
     }
+        public Vector<User> loginRequest(String username, String password) {
+        /*
+            1. call function getUser to check username and password (return null)
+            2. call function getFriends (return vector of friends bjects).
+        */
+            dbHandler.getAllUserFriends(username, password);
+            return null;
+    }
+
 }

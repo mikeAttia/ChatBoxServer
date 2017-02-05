@@ -29,6 +29,8 @@ public class ChatModel extends UnicastRemoteObject implements ServerInterface {
     public ChatModel(MainController c) throws RemoteException
     {
         controlerObject = c;
+      //          loginRequest("s","s",null);
+c.dbHandler.insertUser(new User("asdad", null, null, null, null, null, null, null, null));
     }
 
     boolean bindService() {
@@ -62,7 +64,9 @@ public class ChatModel extends UnicastRemoteObject implements ServerInterface {
             1. call function getUser to check username and password (return null)
             2. call function getFriends (return vector of friends bjects).
         */
-        return null; // to be removed
+        
+             Vector<User> tmp=   controlerObject.loginRequest(username, password);
+        return tmp; // to be removed
     }
 
     @Override
@@ -72,6 +76,8 @@ public class ChatModel extends UnicastRemoteObject implements ServerInterface {
             2.call function checkEmail  (retrun error message related to email)
             3.call function insertUser  (return succes message)
         */
+        
+        
         return null; // to be removed
     }
     
