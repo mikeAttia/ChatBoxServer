@@ -26,19 +26,13 @@ public class MainController{
         dbHandler = new DatabaseHandler(this);
         fxmlController = fxmlCtrlr;
     }
-    void requestServerStart() {
-        //Ehab
-        if(chatModel.bindService())
-        {
-            fxmlController.guiAppendToLog("serverconnected", "green");
-        }
-        else
-        {
-            fxmlController.guiAppendToLog("serverdisconnected", "red");
-        }
+    boolean requestServerStart() {
+         //Ehab
+         return chatModel.bindService();
     }
 
-    void requestServerStop() {
-        //Ehab
+    boolean requestServerStop() {
+         //Ehab
+         return chatModel.unbindService();
     }
 }

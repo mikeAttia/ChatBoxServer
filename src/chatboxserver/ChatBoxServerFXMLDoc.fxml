@@ -82,7 +82,7 @@
                <tooltip>
                   <Tooltip text="Start Server" />
                </tooltip></Button>
-            <Button fx:id="stopBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Stop" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.rowSpan="3">
+            <Button fx:id="stopBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#stopServer" text="Stop" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.rowSpan="3">
                <tooltip>
                   <Tooltip text="Stop Server" />
                </tooltip></Button>
@@ -102,7 +102,7 @@
                <font>
                   <Font size="15.0" />
                </font></Text>
-            <Text fill="#ff2626" strokeType="OUTSIDE" strokeWidth="0.0" text="Offline" GridPane.columnIndex="8" GridPane.rowIndex="3">
+            <Text fx:id="serverStatus" fill="#ff2626" strokeType="OUTSIDE" strokeWidth="0.0" text="Offline" GridPane.columnIndex="8" GridPane.rowIndex="3">
                <font>
                   <Font size="15.0" />
                </font></Text>
