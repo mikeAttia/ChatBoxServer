@@ -8,7 +8,7 @@ package chatboxserver;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
-import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -43,7 +43,7 @@ public class ChatBoxServerFXMLDocController implements Initializable {
     public Text serverStatus;
     
     @FXML
-    public TextFlow activityLog;
+    public TextArea activityLog;
     
     @FXML
     public Button startBtn;
@@ -55,10 +55,10 @@ public class ChatBoxServerFXMLDocController implements Initializable {
     public Button statsBtn;
     
     @FXML
-    public ListView onlineView;
+    public ListView lstonlineView;
     
     @FXML
-    public ListView offlineView;
+    public ListView lstofflineView;
     
     @FXML
     public TextArea announceArea;
@@ -67,30 +67,31 @@ public class ChatBoxServerFXMLDocController implements Initializable {
     public Button announceBtn;
 
     public ChatBoxServerFXMLDocController() throws RemoteException {
+        //linking to maincontroller object
         mainController = new MainController(this);
-       
+
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         connectToDB();
+                        lstofflineView.setItems(mainController.offlineUsers);
+        lstonlineView.setItems(mainController.onlineUsers);
+
     }
 
     /*------------------------------------------------------------
       Assigning methods to Buttons
      ------------------------------------------------------------*/
     
-    /*
-    @FXML
-    private void handleButtonAction(ActionEvent event) {
-        
-    }
-    */
+    //Reconnect hyperlink action
     @FXML
     private void reconnectToDB(ActionEvent event)
     {
         connectToDB();
     }
+    
+    //Start Button action
     @FXML
     private void startServer(ActionEvent event)
     {
@@ -102,8 +103,8 @@ public class ChatBoxServerFXMLDocController implements Initializable {
             statsBtn.setDisable(false);
             announceArea.setDisable(false);
             announceBtn.setDisable(false);
-            onlineView.setDisable(false);
-            offlineView.setDisable(false);
+            lstonlineView.setDisable(false);
+            lstofflineView.setDisable(false);
             serverStatus.setText("Online");
             serverStatus.setFill(Color.GREEN);
         }
@@ -112,6 +113,8 @@ public class ChatBoxServerFXMLDocController implements Initializable {
             guiAppendToLog("error in connection to server", "red");
         }
     }
+    
+    //Stop button server
     @FXML
     private void stopServer(ActionEvent event)
     {
@@ -123,8 +126,8 @@ public class ChatBoxServerFXMLDocController implements Initializable {
             statsBtn.setDisable(true);
             announceArea.setDisable(true);
             announceBtn.setDisable(true);
-            onlineView.setDisable(true);
-            offlineView.setDisable(true);
+            lstonlineView.setDisable(true);
+            lstofflineView.setDisable(true);
             serverStatus.setText("Offline");
             serverStatus.setFill(Color.RED);
         }
@@ -155,14 +158,13 @@ public class ChatBoxServerFXMLDocController implements Initializable {
         reconnectLink.setVisible(false);
         DBStatus.setText("Online");
         DBStatus.setFill(Color.GREEN);
-        //TODO: enable the start button
         startBtn.setDisable(false);
         stopBtn.setDisable(true);
         statsBtn.setDisable(true);
         announceArea.setDisable(true);
         announceBtn.setDisable(true);
-        onlineView.setDisable(true);
-        offlineView.setDisable(true);
+        lstonlineView.setDisable(true);
+        lstofflineView.setDisable(true);
         guiAppendToLog("Database Connected", "green");
     }
     
@@ -173,22 +175,19 @@ public class ChatBoxServerFXMLDocController implements Initializable {
         reconnectLink.setVisible(true);
         DBStatus.setText("Offline");
         DBStatus.setFill(Color.RED);
-        //TODO: disable the rest of the form
         startBtn.setDisable(true);
         stopBtn.setDisable(true);
         statsBtn.setDisable(true);
         announceArea.setDisable(true);
         announceBtn.setDisable(true);
-        onlineView.setDisable(true);
-        offlineView.setDisable(true);
+        lstonlineView.setDisable(true);
+        lstofflineView.setDisable(true);
         guiAppendToLog("Database Disconnected", "red");
     }
-
+  public  void fillUsers(ObservableList<String> m){
+    lstofflineView.setItems(m);
+    }
  
-    
-    
- 
-    
     //Append to the Activity log with a ceratin color
     public void guiAppendToLog(String txt,String type)
     {
@@ -202,7 +201,12 @@ public class ChatBoxServerFXMLDocController implements Initializable {
         {
             text.setFill(Color.RED);
         }
-        activityLog.getChildren().add(text);
+        
+        //TODO: change props of string to show before appending
+        
+        activityLog.appendText(txt + "\n");
         
     }
+
+    
 }

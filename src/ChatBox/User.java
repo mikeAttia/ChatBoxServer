@@ -1,5 +1,5 @@
 
-package chatboxserver;
+package ChatBox;
 
 import java.io.Serializable;
 

@@ -5,45 +5,95 @@
  */
 package chatboxserver;
 
+import ChatBox.Client;
 import java.rmi.RemoteException;
-import java.util.Vector;
-
+import java.util.HashMap;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import sun.misc.Cleaner;
 
 /**
  *
- * @author Mustafa
+ * @author Michael
  */
-public class MainController{
+public class MainController {
 
-     ChatModel chatModel;
-     DatabaseHandler dbHandler;
-     ChatBoxServerFXMLDocController fxmlController;
-     ChatBoxServer application;
-    
-    
-    //Constructor that takes FXMLController and creates objects of other classes
+    DatabaseHandler dbHandler;
+    ChatBoxServerFXMLDocController fxmlController;
+    ChatBoxServer application;
+    ServerModel model;
+    ObservableList<String> offlineUsers = FXCollections.observableArrayList();
+    ObservableList<String> onlineUsers = FXCollections.observableArrayList();
+//    ObservableList<HashMap<String, Client>> onlineUserReferences = FXCollections.observableArrayList();
+    HashMap<String, Client> onlineUserReferences = new HashMap<>();
+    /*------------------------------------------------
+     Default Constructor
+     ------------------------------------------------*/
+
     public MainController(ChatBoxServerFXMLDocController fxmlCtrlr) throws RemoteException {
-              dbHandler = new DatabaseHandler(this);
-
-        chatModel=new ChatModel(this);
+        dbHandler = new DatabaseHandler(this);
+        model = new ServerModel(this);
         fxmlController = fxmlCtrlr;
     }
+
+    /*------------------------------------------------
+     Calling methods from Model
+     ------------------------------------------------*/
     boolean requestServerStart() {
-         //Ehab
-         return chatModel.bindService();
+        fxmlController.fillUsers(dbHandler.getAllUsers());
+        return model.bindService();
     }
 
     boolean requestServerStop() {
-         //Ehab
-         return chatModel.unbindService();
+
+        return model.unbindServie();
     }
-        public Vector<User> loginRequest(String username, String password) {
-        /*
-            1. call function getUser to check username and password (return null)
-            2. call function getFriends (return vector of friends bjects).
-        */
-            dbHandler.getAllUserFriends(username, password);
-            return null;
+    /*------------------------------------------------
+     online UsersList
+     ------------------------------------------------*/
+
+    void updateUsersListGoOnline(String str, Client cl) {
+        Platform.runLater(() -> {
+            if (offlineUsers.contains(str)) {
+                offlineUsers.remove(str);
+            }
+            if (!onlineUsers.contains(str)) {
+                onlineUsers.add(str);
+            }
+        });
+        addtoReference(str, cl);
+    }
+
+    void showdata() {
+        System.out.println(onlineUserReferences.size());
+
+    }
+
+    void updateUsersListGoOffline(String str) {
+        Platform.runLater(() -> {
+            if (onlineUsers.contains(str)) {
+                onlineUsers.remove(str);
+            }
+            if (!offlineUsers.contains(str)) {
+                offlineUsers.add(str);
+            }
+        });
+        removeFromReference(str);
+    }
+
+    public void addtoReference(String str, Client cl) {
+        onlineUserReferences.put(str, cl);
+
+    }
+
+    public void removeFromReference(String str) {
+        onlineUserReferences.remove(str);
+
+    }
+    public Client getUserRefernce(String usrname){
+       
+    return onlineUserReferences.get(usrname);
     }
 
 }
